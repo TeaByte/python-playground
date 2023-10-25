@@ -1,7 +1,7 @@
 # python-playground
 
 Browser based Python playground
-Made using [Pyodide](https://pyodide.org/en/stable/) and ReactJS
+Made using (Web Assembly [Pyodide](https://pyodide.org/en/stable/)) and ReactJS
 
 ---
 
@@ -15,7 +15,8 @@ Made using [Pyodide](https://pyodide.org/en/stable/) and ReactJS
 2. **Install Dependencies**
 
    ```sh
-   npm install
+   npm install --force
+   # Must be --force for dependency conflict in ( react-split-pane )
    ```
 
 3. **Start the Development Server**
