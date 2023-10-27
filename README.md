@@ -19,8 +19,7 @@ Made using (Web Assembly [Pyodide](https://pyodide.org/en/stable/)) and ReactJS
 2. **Install Dependencies**
 
    ```sh
-   npm install --force
-   # Must be --force for dependency conflict in ( react-split-pane )
+   npm install
    ```
 
 3. **Start the Development Server**
