@@ -60,7 +60,8 @@ function App() {
           <section className="w-full h-full bg-black">
             <pre
               className={
-                "bg-black text-green-400 p-4" + (isError ? "text-red-400" : "")
+                "bg-black text-green-400 p-4 " +
+                (isError ? "text-red-400" : "")
               }
               style={{ maxHeight: "500px", overflowY: "auto" }}
             >
