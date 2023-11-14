@@ -3,6 +3,7 @@ import Editor from "@monaco-editor/react";
 export default function CodeEditor(probs) {
   return (
     <Editor
+      className="rounded-sm"
       language="python"
       defaultLanguage="python"
       theme={"vs-dark"}

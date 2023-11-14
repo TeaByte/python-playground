@@ -7,7 +7,7 @@ Button.propTypes = {
 
 export default function Button(props) {
   return (
-    <button className={"btn " + props.appendclass} {...props}>
+    <button className={"btn btn-primary " + props.appendclass} {...props}>
       <div className="flex justify-center items-center gap-1">
         {props.children}
       </div>

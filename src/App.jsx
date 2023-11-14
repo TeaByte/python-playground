@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import SplitPane from "split-pane-react";
 import "split-pane-react/esm/themes/default.css";
 
-import Loader from "./pyodide-loader";
+import Loader from "./loader";
 import CodeEditor from "./components/editor";
-import NavButtons from "./components/nav-buttons";
+import NavButtons from "./components/nav";
 
 function App() {
   const [pythonCode, setPythonCode] = useState(
@@ -58,7 +58,6 @@ print('https://github.com/TeaByte/python-playground')
           <section className="w-full h-full">
             {pyodideLoaded ? (
               <NavButtons
-                className="flex gap-2 p-2 py-2 bg-base-200 items-center justify-center md:justify-start overflow-x-auto"
                 setPythonResult={setPythonResult}
                 setPythonCode={setPythonCode}
                 pythonCode={pythonCode}
@@ -70,15 +69,18 @@ print('https://github.com/TeaByte/python-playground')
             )}
             <CodeEditor setPythonCode={setPythonCode} pythonCode={pythonCode} />
           </section>
-          <section className="w-full h-full bg-base-200">
-            <pre
-              className={
-                "bg-base-200 p-4 " + (isError ? "text-error" : "text-success")
-              }
-              style={{ maxHeight: "500px", overflowY: "auto" }}
-            >
-              {pythonResult}
-            </pre>
+          <section className="w-full h-full bg-base-200 p-2">
+            <div className="mockup-code h-full">
+              <pre
+                style={{ maxHeight: "500px", overflowY: "auto" }}
+                className={
+                  "pl-6 pb-4 " + (isError ? "text-error" : "neutral-content")
+                }
+              >
+                {"\n"}
+                {pythonResult}
+              </pre>
+            </div>
           </section>
         </SplitPane>
       ) : (

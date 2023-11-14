@@ -1,7 +1,14 @@
-import Button from "../button";
-import { RunIcon, ClearIcon, RotateIcon, DownloadIcon } from "../icons";
+import Button from "./button";
+import {
+  RunIcon,
+  ClearIcon,
+  RotateIcon,
+  DownloadIcon,
+  SettingsIcon,
+} from "./icons";
 import { useState } from "react";
 import PropTypes from "prop-types";
+import ThemeSelector from "./themes";
 
 NavButtons.propTypes = {
   rotate: PropTypes.func.isRequired,
@@ -9,7 +16,6 @@ NavButtons.propTypes = {
   setPythonResult: PropTypes.func.isRequired,
   setPythonCode: PropTypes.func.isRequired,
   pythonCode: PropTypes.string.isRequired,
-  className: PropTypes.string,
 };
 
 export default function NavButtons(props) {
@@ -77,53 +83,70 @@ result
 
   return (
     <>
-      <nav className={props.className}>
-        <Button onClick={executeCode} appendclass="btn-info">
+      <nav className="flex gap-1 m-2 p-3 rounded-lg bg-neutral items-center justify-center overflow-x-auto">
+        <Button onClick={executeCode}>
           <RunIcon />
           Run
         </Button>
-        <Button onClick={clearCode} appendclass="btn-outline btn-info">
+        <Button onClick={clearCode} appendclass="btn-outline btn-primary">
           <ClearIcon />
           Clear
         </Button>
         <Button
           onClick={props.rotate}
-          appendclass="hidden md:flex btn-outline btn-info"
+          appendclass="hidden md:flex btn-outline btn-primary"
         >
           <RotateIcon />
           Rotate
         </Button>
-        <Button onClick={downloadCode} appendclass="btn-outline btn-info">
-          <DownloadIcon />
-          Download
-        </Button>
-        {/* DESKTOP VIEW */}
-        <div className="hidden md:flex gap-1 ml-2 bg-base-200">
-          <input
-            type="text"
-            value={pipValue}
-            onChange={(e) => setPipValue(e.target.value)}
-            placeholder="pip install ..."
-            className="input input-bordered input-info w-[50%] max-w-xs"
-          />
-          <Button onClick={pipInstall} appendclass="btn-outline btn-info">
-            <DownloadIcon />
-          </Button>
+        <div className="drawer drawer-end">
+          <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
+          <div className="drawer-content">
+            <label
+              htmlFor="my-drawer-4"
+              className="drawer-button btn btn-primary"
+            >
+              <SettingsIcon />
+            </label>
+          </div>
+          <div className="drawer-side z-50">
+            <label
+              htmlFor="my-drawer-4"
+              aria-label="close sidebar"
+              className="drawer-overlay"
+            ></label>
+            <ul className="p-4 min-h-full bg-base-200 text-base-content flex flex-col gap-2">
+              <li>
+                <Button
+                  onClick={downloadCode}
+                  appendclass="btn-outline btn-info w-full"
+                >
+                  <DownloadIcon />
+                  Download
+                </Button>
+              </li>
+              <li>
+                <div className="join">
+                  <input
+                    className="input input-bordered join-item"
+                    type="text"
+                    value={pipValue}
+                    onChange={(e) => setPipValue(e.target.value)}
+                    placeholder="pip install lib"
+                  />
+                  <button
+                    onClick={pipInstall}
+                    className="btn btn-primary join-item rounded-r-full"
+                  >
+                    <DownloadIcon />
+                  </button>
+                </div>
+              </li>
+              <ThemeSelector />
+            </ul>
+          </div>
         </div>
       </nav>
-      {/* PHONE VIEW   */}
-      <div className="md:hidden flex gap-1 ml-2 bg-base-200 w-full justify-center pb-2">
-        <input
-          type="text"
-          value={pipValue}
-          onChange={(e) => setPipValue(e.target.value)}
-          placeholder="pip install ..."
-          className="input input-bordered input-info w-[50%] max-w-xs"
-        />
-        <Button onClick={pipInstall} appendclass="btn-outline btn-info">
-          <DownloadIcon />
-        </Button>
-      </div>
     </>
   );
 }

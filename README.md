@@ -4,6 +4,7 @@ Browser based Python playground
 Made using (Web Assembly [Pyodide](https://pyodide.org/en/stable/)) and ReactJS
 
 ## Features
+
 - You can install libraries from [MicroPIP](https://pyodide.org/en/stable/usage/loading-packages.html#micropip)
 - Easy to use, Syntax highlight
 
@@ -28,4 +29,4 @@ Made using (Web Assembly [Pyodide](https://pyodide.org/en/stable/)) and ReactJS
    npm run dev
    ```
 
-![Playground photo](https://i.ibb.co/0ndYtx2/Capture.png)
+![Playground photo](https://i.ibb.co/Yj9FPdp/Capture.png)
