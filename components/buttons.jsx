@@ -24,10 +24,11 @@ import {
   RotateCounterClockwiseIcon,
 } from "@radix-ui/react-icons";
 
-import { RunIcon, ClearIcon, SettingsIcon } from "./icons";
+import { RunIcon, ClearIcon, SettingsIcon, MinifierIcon } from "./icons";
 
 export default function Buttons({
   codeString,
+  setCodeString,
   setCodeResult,
   clearCodeFunction,
   rotateCodeFunction,
@@ -38,8 +39,6 @@ export default function Buttons({
   const [pipValue, setPipValue] = useState("");
 
   function run() {
-    console.log(codeString);
-
     const pythonBlock = `
 import sys
 from io import StringIO
@@ -74,7 +73,6 @@ result
   }
 
   function clearCode() {
-    console.log(clearCodeFunction);
     clearCodeFunction();
   }
 
@@ -114,6 +112,34 @@ result
       setCodeResult(`Failed to install ${lib}, ${e}`);
       setIsError(true);
     }
+  }
+
+  function codeMinifier() {
+    const pythonBlock = `import sys
+import python_minifier
+from io import StringIO
+old_stdout = sys.stdout
+sys.stdout = StringIO()
+with open('minifier.py', 'w') as f:
+    f.write(f'''${codeString}''')
+with open('minifier.py') as f:
+    print(python_minifier.minify(f.read()))
+result = sys.stdout.getvalue()
+result
+    `;
+
+    let pyodide = window.pyodide;
+    pyodide
+      .runPythonAsync(pythonBlock)
+      .then((result) => {
+        setIsError(false);
+        console.log("Python => ", result);
+        setCodeString(result);
+      })
+      .catch((error) => {
+        setIsError(true);
+        setCodeResult(`${error}`);
+      });
   }
 
   return (
@@ -159,6 +185,9 @@ result
               </Button>
               <Button onClick={downloadCode}>
                 Download Code <FileIcon className="w-5 h-5 ml-2" />
+              </Button>
+              <Button onClick={codeMinifier}>
+                Code Minifier <MinifierIcon className="w-5 h-5 ml-2" />
               </Button>
 
               <Button className="flex md:hidden" onClick={rotate}>

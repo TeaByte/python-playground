@@ -16,7 +16,6 @@ export function Resizable({
   editorTheme,
   isError,
 }) {
-  console.log(isError);
   return (
     <ResizablePanelGroup direction={direction} className="rounded-lg border">
       <ResizablePanel defaultSize={75}>

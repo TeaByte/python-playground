@@ -9,7 +9,19 @@ import Buttons from "@/components/buttons";
 import Loader from "@/components/loader";
 
 export default function Home() {
-  const [codeString, setCodeString] = useState("print('Hello World')\n");
+  const [codeString, setCodeString] = useState(
+    `import os
+with open("hi.txt", "w") as f:
+    f.write("hello")
+
+current_directory = os.getcwd()
+files = os.listdir(current_directory)
+for f in files:
+    print(f)
+
+print("https://github.com/TeaByte/python-playground")
+`
+  );
   const [codeResult, setCodeResult] = useState("");
   const [isError, setIsError] = useState(false);
   const [editorTheme, setEditorTheme] = useState("vs-dark");
@@ -37,6 +49,7 @@ export default function Home() {
 
       window.pyodide = pyodide;
       window.micropip = micropip;
+      await micropip.install("python_minifier");
 
       setPyodideLoaded(true);
       setCodeResult(pyodide.runPython("import sys;sys.version.split()[0]"));
@@ -72,6 +85,7 @@ export default function Home() {
         <>
           <Buttons
             codeString={codeString}
+            setCodeString={setCodeString}
             setCodeResult={setCodeResult}
             clearCodeFunction={clearCodeFunction}
             rotateCodeFunction={rotateCodeFunction}
